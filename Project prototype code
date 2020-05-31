@@ -1,0 +1,76 @@
+int led = A2;
+int led2 = A3;
+int led3 = A4;
+int photosensor = A0;
+int excessivelyhighLightdata = 200;
+int excessivelyLowLightdata = 5;
+
+void setup() {
+    pinMode(photosensor, INPUT);
+    pinMode(led, OUTPUT);
+    pinMode(led2,OUTPUT);
+    pinMode(led3,OUTPUT);
+}
+
+void loop() {
+    int LightData = analogRead(photosensor);
+    Particle.publish("Lightdata", String(LightData));
+    if(LightData > excessivelyhighLightdata){
+        digitalWrite(led,HIGH);
+        delay(1000);
+        digitalWrite(led,LOW);
+        delay(1000);
+        digitalWrite(led,HIGH);
+        delay(1000);
+        digitalWrite(led,LOW);
+        delay(1000);
+        digitalWrite(led,HIGH);
+        delay(1000);
+        digitalWrite(led,LOW);
+        delay(1000);
+        digitalWrite(led,HIGH);
+        delay(1000);
+        digitalWrite(led,LOW);
+        delay(1000);
+        Particle.publish("High_level light data Warning", "The brightness of the room is excessively high please adjust it!");
+    }
+    else if(LightData < excessivelyLowLightdata){
+        digitalWrite(led2,HIGH);
+        delay(1000);
+        digitalWrite(led2,LOW);
+        delay(1000);
+        digitalWrite(led2,HIGH);
+        delay(1000);
+        digitalWrite(led2,LOW);
+        delay(1000);
+        digitalWrite(led2,HIGH);
+        delay(1000);
+        digitalWrite(led2,LOW);
+        delay(1000);
+        digitalWrite(led2,HIGH);
+        delay(1000);
+        digitalWrite(led2,LOW);
+        delay(1000);
+        Particle.publish("Low_level light data Warning", "The brightness of the room is excessively low please adjust it!");
+    }
+    else{
+        digitalWrite(led3,HIGH);
+        delay(1000);
+        digitalWrite(led3,LOW);
+        delay(1000);
+        digitalWrite(led3,HIGH);
+        delay(1000);
+        digitalWrite(led3,LOW);
+        delay(1000);
+        digitalWrite(led3,HIGH);
+        delay(1000);
+        digitalWrite(led3,LOW);
+        delay(1000);
+        digitalWrite(led3,HIGH);
+        delay(1000);
+        digitalWrite(led3,LOW);
+        delay(1000);
+        Particle.publish("correct light data level", "Enjoy your study time");
+    }
+    delay(30000);//wait for 30 seconds
+}
